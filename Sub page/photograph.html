@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摄影部 | P.O.B 动漫社</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5CF6', // Violet
+                        secondary: '#EC4899', // Pink
+                        darkbg: '#111827', 
+                        carddark: '#1F2937', 
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark .glass-effect {
+            background: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        ::selection {
+            background-color: #EC4899; 
+            color: #ffffff;
+        }
+        ::-moz-selection {
+            background-color: #EC4899;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 transition-colors duration-300 dark:bg-darkbg dark:text-gray-200">
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-effect shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo 跳转到主站 -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='https://asr258.github.io/P.O.B-unOfficial-site/'">
+                    <!-- ▼▼▼ [需修改] 替换为社团 Logo 图片链接 ▼▼▼ -->
+                    <img src="https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo2.png?raw=true" alt="P.O.B Logo" class="h-10 w-auto">
+                    <span class="font-bold text-xl tracking-wider text-primary">
+                        P.O.B 摄影部
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">返回首页</a>
+                    <a href="#intro" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">部门简介</a>
+                    <a href="#masters" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">大佬云集</a>
+                    <a href="#gallery" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">作品展示</a>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-theme-toggle" class="text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary dark:text-gray-300 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
+                <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">返回首页</a>
+                <a href="#intro" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">部门简介</a>
+                <a href="#masters" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">大佬云集</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-24 pb-12 md:pt-32 md:pb-24 overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+            <div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float dark:bg-blue-900 dark:opacity-20"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float dark:bg-indigo-900 dark:opacity-20" style="animation-delay: 2s"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center">
+            <div class="w-full md:w-1/2 text-center md:text-left pt-8 md:pt-0">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-500 uppercase bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300 rounded-full">
+                    P.O.B 核心部门
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4">
+                    光影的魔术师<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">P.O.B 摄影部</span>
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto md:mx-0 font-medium leading-loose">
+                    “索狗，耐克，家具厂，胶片佬，<br>
+                    腹肌党，马徕松，<br>
+                    以及手里拿着健身器材的适马人...<br>
+                    <span class="text-2xl font-bold text-primary">你好。</span>”
+                </p>
+                <p class="text-sm text-gray-500 dark:text-gray-500 mb-8 max-w-lg mx-auto md:mx-0 italic">
+                    *这是一个非常敷衍的介绍（划掉），这是一个充满“毒德大学”气息的组织。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#masters" class="px-8 py-3 text-lg font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                        膜拜大佬 <i class="fa-solid fa-camera ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 flex justify-center relative">
+               <div class="relative w-full max-w-md aspect-square bg-gray-100 dark:bg-gray-800 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden group">
+                   
+                   <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/1.jpeg?raw=true" alt="Camera" class="object-cover w-full h-full opacity-90 group-hover:scale-105 transition duration-700">
+                   
+                   <div class="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/70 to-transparent text-white">
+                       <p class="font-bold text-xl">记录·瞬间</p>
+                       <p class="text-sm opacity-90">底大一级压死人</p>
+                   </div>
+                </div>
+                <div class="absolute -right-4 top-10 bg-white dark:bg-gray-700 p-3 rounded-lg shadow-lg animate-float">
+                    <i class="fa-solid fa-film text-indigo-500 text-xl"></i>
+                </div>
+                <div class="absolute -left-4 bottom-20 bg-white dark:bg-gray-700 p-3 rounded-lg shadow-lg animate-float" style="animation-delay: 1.5s">
+                    <i class="fa-solid fa-cube text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section id="intro" class="py-16 bg-white dark:bg-carddark transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="w-full lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 relative inline-block">
+                        我们是做什么的？
+                        <span class="absolute bottom-0 left-0 w-full h-2 bg-blue-500/20 -z-10"></span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                                <i class="fa-solid fa-users-viewfinder text-blue-500 mr-2"></i>抽象摄影小团体
+                            </h3>
+                            <p>
+                                在这里，我也不知道你能学到什么（笑）。我们信奉<b>“刀锐奶化”</b>，追求<b>“毒德大学”</b>。无论是人像糖水片高手，还是风光老法师，亦或是数毛党，这里都有你的一席之地。
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                                <i class="fa-solid fa-chalkboard-user text-indigo-500 mr-2"></i>技能 (与器材) 交流
+                            </h3>
+                            <p>
+                                后续可能会安排摄影课（入门级别），教你如何从“快门工”进阶。当然，我们更擅长教你如何<b>“灭门”</b>换系统。这里还有3D建模大佬坐镇，欢迎Blender/C4D玩家入场！
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-blue-500">
+                            <p class="italic text-sm">
+                                "拒绝云摄影，除非你键盘修图贼6。" —— 某不愿意透露姓名的秉烛
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/2.jpeg?raw=true" class="rounded-xl shadow-lg w-full h-48 object-cover transform translate-y-4 hover:rotate-2 transition">
+                            <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/3.jpeg?raw=true" class="rounded-xl shadow-lg w-full h-32 object-cover hover:-rotate-2 transition">
+                        </div>
+                        <div class="space-y-4">
+                            <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/5.jpeg?raw=true" class="rounded-xl shadow-lg w-full h-32 object-cover hover:rotate-2 transition">
+                            <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/6.jpeg?raw=true" class="rounded-xl shadow-lg w-full h-48 object-cover transform -translate-y-4 hover:-rotate-2 transition">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Masters / Figures Section -->
+    <section id="masters" class="py-16 bg-gray-50 dark:bg-darkbg border-t border-gray-200 dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">大佬云集</h2>
+                <p class="text-gray-500 dark:text-gray-400">这就是我们部门的排面 (排名不分先后)</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 justify-items-center max-w-5xl mx-auto">
+                <div class="bg-white dark:bg-carddark p-6 rounded-2xl shadow-md text-center border-t-4 border-indigo-500 w-full max-w-xs hover:shadow-xl transition hover:-translate-y-2">
+                     <div class="relative w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-indigo-100 dark:ring-indigo-900 shadow-inner">
+                        <img src="https://q.qlogo.cn/g?b=qq&nk=2423661228&s=640" class="object-cover w-full h-full">
+                     </div>
+                     <h3 class="text-xl font-bold text-gray-900 dark:text-white">苏夜联</h3>
+                     <p class="text-indigo-500 font-medium text-sm mb-3">3D建模大佬</p>
+                     <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed italic">"3D动画未来之星<br>归来的建模大师"</p>
+                </div>
+                <div class="bg-white dark:bg-carddark p-6 rounded-2xl shadow-md text-center border-t-4 border-blue-500 w-full max-w-xs hover:shadow-xl transition hover:-translate-y-2 transform md:scale-105">
+                     <div class="relative w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 shadow-inner">
+                        <img src="https://q.qlogo.cn/g?b=qq&nk=2513545485&s=640" class="object-cover w-full h-full">
+                     </div>
+                     <h3 class="text-xl font-bold text-gray-900 dark:text-white">侠士</h3>
+                     <p class="text-blue-500 font-medium text-sm mb-3">摄影大佬</p>
+                     <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed italic">"漫社最强外援<br>来自武大的强者"</p>
+                </div>
+                <div class="bg-white dark:bg-carddark p-6 rounded-2xl shadow-md text-center border-t-4 border-gray-500 w-full max-w-xs hover:shadow-xl transition hover:-translate-y-2">
+                     <div class="relative w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-gray-200 dark:ring-gray-700 shadow-inner">
+                        <img src="https://q.qlogo.cn/g?b=qq&nk=2131703728&s=640" class="object-cover w-full h-full">
+                     </div>
+                     <h3 class="text-xl font-bold text-gray-900 dark:text-white">来御</h3>
+                     <p class="text-gray-500 font-medium text-sm mb-3">摸鱼大师</p>
+                     <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed italic">"还在摸鱼的来御<br>（暂无更多介绍）"</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Showcase Placeholder -->
+    <section id="gallery" class="py-16 bg-white dark:bg-carddark transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">作品展示</h2>
+                <p class="text-gray-500 dark:text-gray-400">别说话，上图。请欣赏这焦外如奶油般化开的...</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- 作品1 -->
+                <div class="aspect-video bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative group">
+                    <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/7.jpeg?raw=true" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold">风光摄影 (Landscape)</div>
+                </div>
+                <!-- 作品2 -->
+                <div class="aspect-video bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative group">
+                    <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/4.png?raw=true" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold">人像摄影 (Portrait)</div>
+                </div>
+                <!-- 作品3 -->
+                <div class="aspect-video bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative group">
+                    <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/photograph/8.jpeg?raw=true" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold">3D 建模 (Modeling)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#1F2937] dark:bg-black text-white py-12 border-t border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                        <span class="font-bold text-xl tracking-wider">武汉纺织大学 P.O.B 动漫社</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+                        P.O.B (Post Office Box) <br>
+                        无论名字的含义如何，这里始终是我们热爱的聚集地。
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="text-lg font-bold mb-4">友情链接</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="https://www.wtu.edu.cn/" target="_blank" class="hover:text-white transition">武汉纺织大学官网</a></li>
+                    </ul>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="text-lg font-bold mb-4">关注我们</h4>
+                    <div class="flex justify-center gap-4">
+                        <a href="https://space.bilibili.com/286416050" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-secondary transition group" title="访问我们的B站主页">
+                            <i class="fa-brands fa-bilibili text-2xl group-hover:animate-bounce"></i>
+                        </a>
+                        <a href="https://tieba.baidu.com/f?kw=pob%E5%8A%A8%E6%BC%AB%E7%A4%BE" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-blue-600 transition group" title="访问我们的百度贴吧">
+                            <i class="fa-solid fa-paw text-2xl group-hover:rotate-12 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs">
+                &copy; 2025 武汉纺织大学 P.O.B 动漫社. 操场别封烟了.
+            </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                if(isDark) {
+                    nav.classList.remove('glass-effect');
+                    nav.classList.add('bg-gray-900/95');
+                } else {
+                    nav.classList.replace('glass-effect', 'bg-white/95');
+                }
+            } else {
+                nav.classList.remove('shadow-md');
+                if(isDark) {
+                    nav.classList.remove('bg-gray-900/95');
+                    nav.classList.add('glass-effect');
+                } else {
+                    nav.classList.replace('bg-white/95', 'glass-effect');
+                }
+            }
+        });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const htmlElement = document.documentElement;
+
+        function toggleTheme() {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+
+        // Check for saved user preference. Defaults to Light mode if no preference found.
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlElement.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            // Explicitly remove dark class to ensure Light mode is default
+            htmlElement.classList.remove('dark');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+    </script>
+</body>
+</html>
