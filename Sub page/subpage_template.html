@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ▼▼▼ [需修改] 1. 这里修改浏览器标签页显示的标题 ▼▼▼ --><title>二级页面标题 | P.O.B 动漫社</title>
+    <!-- ▼▼▼ [需修改] 1. 这里修改浏览器标签页显示的标题 ▼▼▼ -->
+    <title>二级页面标题 | P.O.B 动漫社</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 1. 暗色模式同步脚本 (放在 Head 中以防止闪烁) -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 
     <script>
         tailwind.config = {
@@ -64,17 +74,20 @@
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 transition-colors duration-300 dark:bg-darkbg dark:text-gray-200 flex flex-col min-h-screen">
 
-    <!-- ================= 导航栏 ================= --><nav class="fixed w-full z-50 transition-all duration-300 glass-effect shadow-sm" id="navbar">
+    <!-- ================= 导航栏 ================= -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-effect shadow-sm" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo (点击跳转到指定首页) --><div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='https://asr258.github.io/P.O.B-unOfficial-site/'">
-                    <img src="https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/logo2.png?raw=true" alt="P.O.B Logo" class="h-10 w-auto">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='https://asr258.github.io/P.O.B-unOfficial-site/'">
+                    <img src="https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo2.png?raw=true" alt="P.O.B Logo" class="h-10 w-auto">
                     <span class="font-bold text-xl tracking-wider text-primary">
                         P.O.B 动漫社
                     </span>
                 </div>
                 
-                <!-- Desktop Menu --><!-- 注意：这里的所有链接都加了前缀，确保能跳回主页的锚点 --><div class="hidden md:flex items-center space-x-8">
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
                     <a href="https://asr258.github.io/P.O.B-unOfficial-site/#home" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">首页</a>
                     <a href="https://asr258.github.io/P.O.B-unOfficial-site/#intro" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">社团简介</a>
                     <a href="https://asr258.github.io/P.O.B-unOfficial-site/#about" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">部门介绍</a>
@@ -85,7 +98,8 @@
                     </button>
                 </div>
 
-                <!-- Mobile menu button --><div class="md:hidden flex items-center gap-4">
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center gap-4">
                     <button id="mobile-theme-toggle" class="text-gray-600 dark:text-gray-300">
                         <i class="fas fa-moon" id="mobile-theme-icon"></i>
                     </button>
@@ -97,7 +111,8 @@
             </div>
         </div>
 
-        <!-- Mobile Menu Panel --><div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 absolute w-full">
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 absolute w-full">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
                 <a href="https://asr258.github.io/P.O.B-unOfficial-site/#home" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">首页</a>
                 <a href="https://asr258.github.io/P.O.B-unOfficial-site/#intro" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">社团简介</a>
@@ -107,73 +122,92 @@
         </div>
     </nav>
 
-    <!-- ================= 主要内容区域 (Main Content) ================= --><main class="flex-grow pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+    <!-- ================= 主要内容区域 (Main Content) ================= -->
+    <main class="flex-grow pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             
-            <!-- 面包屑导航 (页面顶部小导航) --><div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
+            <!-- 面包屑导航 -->
+            <div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
                 <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="hover:text-primary transition">首页</a>
                 <span class="mx-2">/</span>
-                <!-- ▼▼▼ [需修改] 2. 这里修改面包屑导航显示的当前页面名称 ▼▼▼ --><span class="text-gray-800 dark:text-gray-200">分类</span> 
+                <!-- ▼▼▼ [需修改] 2. 这里修改面包屑导航显示的当前页面名称 ▼▼▼ -->
+                <span class="text-gray-800 dark:text-gray-200">分类</span> 
             </div>
 
-            <!-- 内容白色卡片容器 --><article class="bg-white dark:bg-carddark rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 md:p-12 transition-colors duration-300">
+            <!-- 内容白色卡片容器 -->
+            <article class="bg-white dark:bg-carddark rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 md:p-12 transition-colors duration-300 relative">
                 
-                <!-- 文章头部信息 --><header class="mb-10 border-b border-gray-100 dark:border-gray-700 pb-8">
-                    <!-- ▼▼▼ [需修改] 3. 这里修改分类标签 (如：活动公告 / 招新信息 / 成员展示) ▼▼▼ --><div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary uppercase bg-purple-100 dark:bg-purple-900/30 dark:text-purple-300 rounded-full">
+                <!-- 文章头部信息 -->
+                <header class="mb-10 border-b border-gray-100 dark:border-gray-700 pb-8">
+                    <!-- ▼▼▼ [需修改] 3. 分类标签 ▼▼▼ -->
+                    <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary uppercase bg-purple-100 dark:bg-purple-900/30 dark:text-purple-300 rounded-full">
                         分类
                     </div>
                     
-                    <!-- ▼▼▼ [需修改] 4. 这里修改页面大标题 ▼▼▼ --><h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                    <!-- ▼▼▼ [需修改] 4. 页面大标题 ▼▼▼ -->
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
                         这里是文章的主标题
                     </h1>
                     
                     <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                        <!-- ▼▼▼ [需修改] 5. 这里修改发布日期 ▼▼▼ --><span><i class="fa-regular fa-calendar mr-2"></i>时间时间时间</span>
-                        <!-- ▼▼▼ [需修改] 6. 这里修改发布者名字 ▼▼▼ --><span><i class="fa-regular fa-user mr-2"></i>作者/部门</span>
+                        <!-- ▼▼▼ [需修改] 5. 发布日期 ▼▼▼ -->
+                        <span><i class="fa-regular fa-calendar mr-2"></i>时间时间时间</span>
+                        <!-- ▼▼▼ [需修改] 6. 发布者 ▼▼▼ -->
+                        <span><i class="fa-regular fa-user mr-2"></i>作者/部门</span>
                     </div>
                 </header>
 
-                <!-- 文章正文内容填充区 --><div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-6">
+                <!-- 文章正文内容填充区 -->
+                <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-6">
                     
-                    <!-- ▼▼▼ [需修改] 7. 导语段落 (字体稍大) ▼▼▼ --><p class="text-lg font-medium text-gray-800 dark:text-gray-100">
+                    <!-- ▼▼▼ [需修改] 7. 导语段落 ▼▼▼ -->
+                    <p class="text-lg font-medium text-gray-800 dark:text-gray-100">
                         这里是导语部分。请在这里简要概括此页面的主要内容。这段文字的字体会稍微大一些，用于吸引读者注意。
                     </p>
 
-                    <!-- ▼▼▼ [需修改] 8. 普通段落 ▼▼▼ --><p>
+                    <!-- ▼▼▼ [需修改] 8. 普通段落 ▼▼▼ -->
+                    <p>
                         这里是正文内容的开始。P.O.B 动漫社（Post Office Box）致力于为同学们打造一个温馨的二次元港湾。在这里，你可以尽情挥洒汗水，展示才华。
                         <br>
                         (提示：如需换行，直接开始新的 &lt;p&gt; 标签，或者使用 &lt;br&gt;)
                     </p>
 
-                    <!-- ▼▼▼ [需修改] 9. 图片插入示例 - 已替换为占位符图片 ▼▼▼ --><div class="my-8 rounded-xl overflow-hidden shadow-lg">
+                    <!-- ▼▼▼ [需修改] 9. 图片插入示例 ▼▼▼ -->
+                    <div class="my-8 rounded-xl overflow-hidden shadow-lg">
                         <img src="https://via.placeholder.com/800x450/cccccc/ffffff?text=Feature+Image" alt="示例图片占位符" class="w-full h-auto object-cover hover:scale-105 transition duration-500">
                         <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">图片下方的说明文字</p>
                     </div>
 
-                    <!-- ▼▼▼ [需修改] 10. 小标题示例 ▼▼▼ --><h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">这里是小标题</h2>
+                    <!-- ▼▼▼ [需修改] 10. 小标题示例 ▼▼▼ -->
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">这里是小标题</h2>
                     <p>
                         这是小标题下方的内容。你可以在这里继续书写详细信息。
                     </p>
 
-                    <!-- ▼▼▼ [需修改] 11. 列表内容示例 ▼▼▼ --><ul class="list-disc list-inside space-y-2 ml-4 border-l-4 border-primary pl-4 bg-gray-50 dark:bg-gray-800/50 py-4 pr-4 rounded-r-lg">
+                    <!-- ▼▼▼ [需修改] 11. 列表内容示例 ▼▼▼ -->
+                    <ul class="list-disc list-inside space-y-2 ml-4 border-l-4 border-primary pl-4 bg-gray-50 dark:bg-gray-800/50 py-4 pr-4 rounded-r-lg">
                         <li>111</li>
                         <li>222</li>
                         <li>333</li>
                     </ul>
 
-                    <!-- ▼▼▼ [需修改] 12. 引用/强调框示例 ▼▼▼ --><blockquote class="p-4 my-4 border-l-4 border-secondary bg-pink-50 dark:bg-pink-900/20 dark:border-secondary text-gray-700 dark:text-gray-300 italic rounded-r-lg">
+                    <!-- ▼▼▼ [需修改] 12. 引用/强调框示例 ▼▼▼ -->
+                    <blockquote class="p-4 my-4 border-l-4 border-secondary bg-pink-50 dark:bg-pink-900/20 dark:border-secondary text-gray-700 dark:text-gray-300 italic rounded-r-lg">
                         "这是一段引用样式的文字，适合用来强调重要通知、名言或者特别提醒。"
                     </blockquote>
                 </div>
 
-                <!-- 底部操作区 --><div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                    <!-- 返回按钮 (已配置好跳转链接) --><a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="inline-flex items-center text-primary hover:text-secondary transition font-medium">
+                <!-- 底部操作区 -->
+                <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                    <!-- 返回按钮 -->
+                    <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="inline-flex items-center text-primary hover:text-secondary transition font-medium">
                         <i class="fa-solid fa-arrow-left mr-2"></i> 返回首页
                     </a>
                     
-                    <!-- 装饰用的分享按钮 (无实际功能) --><div class="flex gap-3">
-                        <button class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 hover:text-primary transition">
-                            <i class="fa-solid fa-share-nodes"></i>
+                    <!-- 分享按钮区域 -->
+                    <div class="flex gap-3">
+                        <button id="share-btn" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 hover:text-primary hover:bg-purple-50 dark:hover:bg-gray-600 transition group relative" title="复制链接">
+                            <i class="fa-solid fa-share-nodes group-hover:scale-110 transition-transform"></i>
                         </button>
                     </div>
                 </div>
@@ -182,47 +216,60 @@
         </div>
     </main>
 
-    <!-- ================= 页脚 ================= --><footer class="bg-[#1F2937] dark:bg-black text-white py-12 border-t border-gray-800 transition-colors duration-300 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
-                
-                <div class="text-center md:text-left">
-                    <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
-                        <span class="font-bold text-xl tracking-wider">武汉纺织大学 P.O.B 动漫社</span>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
-                        P.O.B (Post Office Box) <br>
-                        无论名字的含义如何，这里始终是我们热爱的聚集地。
-                    </p>
-                </div>
+    <!-- 复制成功提示 (Toast) -->
+    <div id="copy-toast" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-black/80 text-white px-5 py-2.5 rounded-full text-sm shadow-xl opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center backdrop-blur-sm translate-y-4">
+        <i class="fa-solid fa-check-circle text-green-400 mr-2"></i> 
+        <span>链接已复制到剪贴板</span>
+    </div>
 
-                <div class="text-center">
-                    <h4 class="text-lg font-bold mb-4">友情链接</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="https://www.wtu.edu.cn/" target="_blank" class="hover:text-white transition">武汉纺织大学官网</a></li>
-                    </ul>
-                </div>
+    <!-- 底部导航栏占位符 -->
+    <div id="footer-placeholder"></div>
 
-                <div class="text-center">
-                    <h4 class="text-lg font-bold mb-4">关注我们</h4>
-                    <div class="flex justify-center gap-4">
-                        <a href="https://space.bilibili.com/286416050" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-secondary transition group" title="访问我们的B站主页">
-                            <i class="fa-brands fa-bilibili text-2xl group-hover:animate-bounce"></i>
-                        </a>
-                        <a href="https://tieba.baidu.com/f?kw=pob%E5%8A%A8%E6%BC%AB%E7%A4%BE" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-blue-600 transition group" title="访问我们的百度贴吧">
-                            <i class="fa-solid fa-paw text-2xl group-hover:rotate-12 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs">
-                &copy; 2025 武汉纺织大学 P.O.B 动漫社. 操场别封烟了.
-        </div>
-    </footer>
+    <!-- 引入 JS 脚本 -->
+    <script src="../load-footer.js"></script>
 
     <script>
-        // Mobile Menu Toggle
+        // ================= 分享按钮逻辑 (核心部分) =================
+        const shareBtn = document.getElementById('share-btn');
+        const copyToast = document.getElementById('copy-toast');
+
+        if (shareBtn) {
+            shareBtn.addEventListener('click', () => {
+                // 1. 获取当前网址
+                const url = window.location.href;
+                
+                // 2. 创建临时输入框用于复制 (兼容旧版浏览器的最稳妥方案)
+                const tempInput = document.createElement('input');
+                document.body.appendChild(tempInput);
+                tempInput.value = url;
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // 兼容移动端
+                
+                try {
+                    // 3. 执行复制命令
+                    document.execCommand('copy');
+                    
+                    // 4. 显示成功提示 (移除隐藏样式，添加显示位置)
+                    copyToast.classList.remove('opacity-0', 'translate-y-4');
+                    
+                    // 5. 2秒后自动隐藏
+                    setTimeout(() => {
+                        copyToast.classList.add('opacity-0', 'translate-y-4');
+                    }, 2000);
+                    
+                } catch (err) {
+                    console.error('复制失败:', err);
+                    alert('自动复制失败，请手动复制浏览器地址栏链接');
+                }
+                
+                // 6. 移除临时输入框
+                document.body.removeChild(tempInput);
+            });
+        }
+
+        // ================= 其他通用逻辑 =================
+
+        // 移动端菜单逻辑
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -237,7 +284,7 @@
             });
         });
 
-        // Navbar scroll effect
+        // 导航栏滚动效果
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             const isDark = document.documentElement.classList.contains('dark');
@@ -261,7 +308,7 @@
             }
         });
 
-        // Theme Toggle Logic
+        // 主题切换逻辑
         const themeToggleBtn = document.getElementById('theme-toggle');
         const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
@@ -285,14 +332,10 @@
         themeToggleBtn.addEventListener('click', toggleTheme);
         mobileThemeToggleBtn.addEventListener('click', toggleTheme);
 
-        // Check for saved user preference. Defaults to Light mode if no preference found.
         if (localStorage.getItem('theme') === 'dark') {
-            htmlElement.classList.add('dark');
             themeIcon.classList.replace('fa-moon', 'fa-sun');
             mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
         } else {
-            // Explicitly remove dark class to ensure Light mode is default
-            htmlElement.classList.remove('dark');
             themeIcon.classList.replace('fa-sun', 'fa-moon');
             mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
         }
