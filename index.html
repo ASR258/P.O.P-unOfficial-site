@@ -40,7 +40,7 @@
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.95); /* 稍微增加不透明度以提高清晰度 */
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
         }
 
@@ -49,9 +49,8 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- 强制修改：选中文字的颜色 (纯色模式) --- */
         ::selection {
-            background-color: #EC4899; /* 使用 secondary 粉色 */
+            background-color: #EC4899;
             color: #ffffff;
         }
         ::-moz-selection {
@@ -67,10 +66,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
                     <img src="https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo2.png?raw=true" alt="P.O.B Logo" class="h-10 w-auto">
-                    
-                    <span class="font-bold text-xl tracking-wider text-primary">
-                        P.O.B 动漫社
-                    </span>
+                    <span class="font-bold text-xl tracking-wider text-primary">P.O.B 动漫社</span>
                 </div>
                 
                 <div class="hidden md:flex items-center space-x-8">
@@ -78,7 +74,6 @@
                     <a href="#intro" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">社团简介</a>
                     <a href="#about" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">部门介绍</a>
                     <a href="#members" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">社团负责人</a>
-                    
                     <button id="theme-toggle" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition">
                         <i class="fas fa-moon" id="theme-icon"></i>
                     </button>
@@ -88,7 +83,6 @@
                     <button id="mobile-theme-toggle" class="text-gray-600 dark:text-gray-300">
                         <i class="fas fa-moon" id="mobile-theme-icon"></i>
                     </button>
-
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary dark:text-gray-300 focus:outline-none">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
@@ -221,7 +215,6 @@
                     <p class="text-gray-600 dark:text-gray-400 text-sm">挥舞手中的荧光棒，划破夜空的轨迹。</p>
                 </div>
 
-                <!-- 修改：摄影部 增加跳转链接 -->
                 <a href="https://asr258.github.io/P.O.B-unOfficial-site/Sub%20page/photograph.html" class="bg-white dark:bg-carddark rounded-xl p-6 hover:shadow-lg transition duration-300 border border-gray-100 dark:border-gray-700 group hover:-translate-y-1 block">
                     <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500 group-hover:text-white transition duration-300 text-blue-500 dark:text-blue-300">
                         <i class="fa-solid fa-camera-retro text-xl"></i>
@@ -389,47 +382,13 @@
         </div>
     </section>
 
-    <footer class="bg-[#1F2937] dark:bg-black text-white py-12 border-t border-gray-800 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
-                
-                <div class="text-center md:text-left">
-                    <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
-                        <span class="font-bold text-xl tracking-wider">武汉纺织大学 P.O.B 动漫社</span>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
-                        P.O.B (Post Office Box) <br>
-                        无论名字的含义如何，这里始终是我们热爱的聚集地。
-                    </p>
-                </div>
+    <!-- 底部导航栏占位符 -->
+    <div id="footer-placeholder"></div>
 
-                <div class="text-center">
-                    <h4 class="text-lg font-bold mb-4">友情链接</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="https://www.wtu.edu.cn/" target="_blank" class="hover:text-white transition">武汉纺织大学官网</a></li>
-                    </ul>
-                </div>
-
-                <div class="text-center">
-                    <h4 class="text-lg font-bold mb-4">关注我们</h4>
-                    <div class="flex justify-center gap-4">
-                        <a href="https://space.bilibili.com/286416050" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-secondary transition group" title="访问我们的B站主页">
-                            <i class="fa-brands fa-bilibili text-2xl group-hover:animate-bounce"></i>
-                        </a>
-                        <a href="https://tieba.baidu.com/f?kw=pob%E5%8A%A8%E6%BC%AB%E7%A4%BE" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-blue-600 transition group" title="访问我们的百度贴吧">
-                            <i class="fa-solid fa-paw text-2xl group-hover:rotate-12 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs">
-                &copy; 2025 武汉纺织大学 P.O.B 动漫社. 操场别封烟了.
-        </div>
-    </footer>
+    <!-- 引入 JS 脚本 -->
+    <script src="load-footer.js"></script>
 
     <script>
-        // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -444,7 +403,6 @@
             });
         });
 
-        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             const isDark = document.documentElement.classList.contains('dark');
@@ -468,7 +426,6 @@
             }
         });
 
-        // Theme Toggle Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
@@ -492,13 +449,11 @@
         themeToggleBtn.addEventListener('click', toggleTheme);
         mobileThemeToggleBtn.addEventListener('click', toggleTheme);
 
-        // Check for saved user preference. Defaults to Light mode if no preference found.
         if (localStorage.getItem('theme') === 'dark') {
             htmlElement.classList.add('dark');
             themeIcon.classList.replace('fa-moon', 'fa-sun');
             mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
         } else {
-            // Explicitly remove dark class to ensure Light mode is default
             htmlElement.classList.remove('dark');
             themeIcon.classList.replace('fa-sun', 'fa-moon');
             mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
