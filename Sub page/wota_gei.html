@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>星奏界隈 | P.O.B 动漫社</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#F59E0B', 
+                        secondary: '#8B5CF6', 
+                        darkbg: '#0F172A', 
+                        carddark: '#1E293B', 
+                        neon: '#FBBF24',
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 5px theme("colors.primary"), 0 0 20px theme("colors.primary")',
+                        'neon-sec': '0 0 5px theme("colors.secondary"), 0 0 20px theme("colors.secondary")',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; 
+        }
+
+        @keyframes pulse-neon {
+            0%, 100% { box-shadow: 0 0 5px #F59E0B, 0 0 10px #F59E0B; }
+            50% { box-shadow: 0 0 20px #F59E0B, 0 0 30px #F59E0B; }
+        }
+
+        .animate-neon {
+            animation: pulse-neon 2s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-effect {
+            background: rgba(15, 23, 42, 0.90);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        ::selection {
+            background-color: #F59E0B;
+            color: #ffffff;
+        }
+        ::-moz-selection {
+            background-color: #F59E0B;
+            color: #ffffff;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 transition-colors duration-300 dark:bg-darkbg dark:text-gray-200 w-full">
+
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-effect shadow-sm top-0 left-0" id="navbar">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='https://asr258.github.io/P.O.B-unOfficial-site/'">
+                    <img src="https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo2.png?raw=true" alt="P.O.B Logo" class="h-10 w-auto">
+                    <span class="font-bold text-xl tracking-wider text-primary border-l-2 border-primary pl-2 ml-2">
+                        星奏界隈
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition flex items-center">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> 返回首页
+                    </a>
+                    <a href="#showcase" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">
+                        <i class="fa-solid fa-fire mr-1"></i> 技艺展示
+                    </a>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-theme-toggle" class="text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary dark:text-gray-300 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 absolute w-full left-0 shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">返回首页</a>
+                <a href="#showcase" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">技艺展示</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative h-[50vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden bg-darkbg">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[100px]"></div>
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop" alt="Concert Lights" class="w-full h-full object-cover opacity-40 mix-blend-overlay">
+        </div>
+
+        <div class="relative z-10 text-center px-4 w-full max-w-4xl mx-auto mt-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1 mb-6 text-xs font-bold tracking-wider text-yellow-100 uppercase bg-primary/80 backdrop-blur-md rounded-full shadow-neon animate-float">
+                <i class="fa-solid fa-bolt"></i> P.O.B Wota Gei
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl">
+                光影<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">轨迹</span>，
+                <br class="md:hidden">划破星空
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
+                这里是星奏界隈。手中的荧光棒，是我们与世界对话的语言。<br>
+                从 <span class="text-primary">OAD</span> 到 <span class="text-secondary">六段突</span>，每一瞬都是燃烧的热爱。
+            </p>
+            <div class="flex justify-center">
+                <a href="#showcase" class="group relative px-8 py-3 text-lg font-bold text-darkbg bg-white rounded-full overflow-hidden shadow-lg hover:shadow-neon transition-all duration-300">
+                    <span class="relative z-10">技艺展示 <i class="fa-solid fa-play ml-2 group-hover:translate-x-1 transition-transform"></i></span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span class="absolute inset-0 z-10 group-hover:text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">技艺展示 <i class="fa-solid fa-play ml-2"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="showcase" class="py-16 w-full bg-white dark:bg-carddark transition-colors duration-300 relative">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-8 lg:items-stretch">
+                <div class="w-full lg:w-2/3 flex flex-col">
+                    <div class="mb-4 flex items-center justify-between">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-brands fa-youtube text-primary"></i> 
+                            技艺展示
+                        </h2>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 font-mono">LIVE PERFORMANCE</span>
+                    </div>
+                    <div class="relative w-full rounded-xl overflow-hidden shadow-xl dark:shadow-none ring-1 ring-gray-200 dark:ring-gray-700 group bg-black">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary opacity-20 blur transition duration-500 group-hover:opacity-50 dark:block hidden"></div>
+                        
+                        <div class="relative w-full aspect-video video-container bg-black z-10">
+                            <iframe 
+                                src="https://player.bilibili.com/player.html?bvid=BV1ALRhYiEpi&page=1&high_quality=1&danmaku=0&autoplay=0" 
+                                scrolling="no" 
+                                border="0" 
+                                frameborder="0" 
+                                framespacing="0" 
+                                allowfullscreen="true"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                class="w-full h-full absolute top-0 left-0">
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-4 bg-gray-50 dark:bg-darkbg rounded-lg border-l-4 border-primary">
+                        <h3 class="font-bold text-gray-900 dark:text-gray-200">【wota艺】Calc-初音ミク(星奏界隈39日贺作)</h3>
+                        <p class="text-sm text-gray-500 mt-1">参与人员：
+                        纸鸢 寂零 叔晚 向阳 雪rua 莉莉 枫溪 熠闪 橘子 70
+                        视频制作： 纸鸢 封面： 秉烛（我滴欧宝，封面滴神）</p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/3 flex flex-col justify-center">
+                    <div class="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 transform transition hover:-translate-y-2 hover:shadow-2xl group">
+                        <div class="absolute top-16 left-1/2 -translate-x-1/2 text-6xl font-black text-gray-100 dark:text-gray-700 opacity-50 pointer-events-none select-none z-0 font-sans whitespace-nowrap">
+                            MASTER
+                        </div>
+
+                        <div class="relative z-10 flex flex-col items-center text-center">
+                            <!-- 头像 -->
+                            <div class="relative w-32 h-32 mb-6">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full animate-spin-slow blur opacity-70"></div>
+                                <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-inner">
+                                    <img src="https://q.qlogo.cn/g?b=qq&nk=1075545263&s=640" alt="纸鸢" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                </div>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">纸鸢</h3>
+                            <p class="text-sm text-secondary font-bold tracking-widest uppercase mb-4">wota艺大神</p>
+
+                            <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent mb-4"></div>
+
+                            <p class="text-gray-600 dark:text-gray-300 italic mb-6 relative px-4">
+                                <i class="fa-solid fa-quote-left text-primary/30 text-xl absolute top-0 left-0 -translate-x-2 -translate-y-2"></i>
+                                “做好一件事就行了，没事的，相信自己可以”
+                                <i class="fa-solid fa-quote-right text-primary/30 text-xl absolute bottom-0 right-0 translate-x-2 translate-y-2"></i>
+                            </p>
+                            <div class="flex flex-wrap justify-center gap-2 mb-6">
+                                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 text-xs font-bold rounded-full">技术指导</span>
+                            </div>
+                            <a href="https://space.bilibili.com/29143392" target="_blank" class="w-full block py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-colors shadow-lg text-center">
+                                <i class="fa-brands fa-bilibili mr-2"></i> 关注纸鸢
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="footer-placeholder"></div>
+
+    <script src="lead-rooter.js"></script>
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                if(isDark) {
+                    nav.classList.remove('glass-effect');
+                    nav.classList.add('bg-gray-900/95');
+                } else {
+                    nav.classList.replace('glass-effect', 'bg-white/95');
+                }
+            } else {
+                nav.classList.remove('shadow-md');
+                if(isDark) {
+                    nav.classList.remove('bg-gray-900/95');
+                    nav.classList.add('glass-effect');
+                } else {
+                    nav.classList.replace('bg-white/95', 'glass-effect');
+                }
+            }
+        });
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const htmlElement = document.documentElement;
+
+        function toggleTheme() {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+            }
+        }
+
+        function updateIcons(isDark) {
+            if (isDark) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+        if (htmlElement.classList.contains('dark')) {
+            updateIcons(true);
+        } else {
+            updateIcons(false);
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+    </script>
+</body>
+</html>
