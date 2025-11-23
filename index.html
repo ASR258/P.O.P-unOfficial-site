@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <script>
         tailwind.config = {
             darkMode: 'class', 
             theme: {
@@ -38,6 +46,15 @@
             animation: float 3s ease-in-out infinite;
         }
         
+        /* 模态框动画 */
+        @keyframes modal-in {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-modal-in {
+            animation: modal-in 0.3s ease-out forwards;
+        }
+
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -58,7 +75,7 @@
         }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 transition-colors duration-300 dark:bg-darkbg dark:text-gray-200">
+<body class="font-sans text-gray-800 bg-gray-50 transition-colors duration-300 dark:bg-darkbg dark:text-gray-200 relative">
 
     <nav class="fixed w-full z-50 transition-all duration-300 glass-effect shadow-sm" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -127,22 +144,51 @@
                 </div>
             </div>
             <div class="w-full md:w-1/2 flex justify-center relative">
-               <div class="relative w-full max-w-md aspect-square bg-gray-100 dark:bg-gray-800 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden group">
-                   <div class="absolute inset-0 bg-[url('https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo1.jpg?raw=true')] bg-cover bg-center opacity-80 group-hover:scale-105 transition duration-700"></div>
-                   <div class="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/70 to-transparent text-white">
+               <div onclick="openMascotModal()" class="relative w-full max-w-md aspect-square bg-gray-100 dark:bg-gray-800 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden group cursor-pointer transform transition hover:scale-[1.02]">
+                   <div class="absolute inset-0 bg-[url('https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo1.jpg?raw=true')] bg-cover bg-center opacity-80 group-hover:opacity-100 transition duration-700"></div>
+                   <div class="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/70 to-transparent text-white group-hover:pb-8 transition-all duration-300">
                        <p class="font-bold text-xl">P.O.B 动漫社</p>
-                       <p class="text-sm opacity-90">武汉纺织大学</p>
+                       <p class="text-sm opacity-90">点击查看看板娘介绍</p>
                    </div>
                 </div>
-                <div class="absolute -right-4 top-10 bg-white dark:bg-gray-700 p-3 rounded-lg shadow-lg animate-float">
+                <div class="absolute -right-4 top-10 bg-white dark:bg-gray-700 p-3 rounded-lg shadow-lg animate-float pointer-events-none">
                     <i class="fa-solid fa-music text-secondary text-xl"></i>
                 </div>
-                <div class="absolute -left-4 bottom-20 bg-white dark:bg-gray-700 p-3 rounded-lg shadow-lg animate-float" style="animation-delay: 1.5s">
+                <div class="absolute -left-4 bottom-20 bg-white dark:bg-gray-700 p-3 rounded-lg shadow-lg animate-float pointer-events-none" style="animation-delay: 1.5s">
                     <i class="fa-solid fa-camera text-primary text-xl"></i>
                 </div>
             </div>
         </div>
     </section>
+    <div id="mascot-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeMascotModal()"></div>
+
+        <div class="relative bg-white dark:bg-carddark rounded-2xl shadow-2xl w-full max-w-sm md:max-w-md lg:max-w-lg overflow-hidden transform transition-all animate-modal-in flex flex-col max-h-[90vh]">
+            <div class="relative h-64 md:h-80 shrink-0 bg-gray-100 dark:bg-gray-700">
+                <img src="https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo1.jpg?raw=true" alt="茶笙笙" class="w-full h-full object-cover object-top">
+                <button onclick="closeMascotModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition backdrop-blur-md">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 md:p-8 overflow-y-auto">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">茶笙笙</h3>
+                    <span class="px-3 py-1 text-xs font-bold text-white bg-primary rounded-full">看板娘</span>
+                </div>
+                <p class="text-sm text-secondary font-medium mb-4">P.O.B 动漫社文化传承象征</p>
+                <div class="w-full h-px bg-gray-200 dark:bg-gray-700 mb-4"></div>
+                <div class="space-y-3 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    <p>
+                        “茶笙”小天使诞生于2017年，是 P.O.B 动漫社公认的“漫娘”。她不仅是一个可爱的形象，更代表着整个动漫社的文化传承与精神内核。
+                    </p>
+                    <p class="italic text-primary/80 dark:text-primary/60 mt-4">
+                        “无论版本如何更迭，热爱永远不会毕业。”
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="intro" class="py-16 bg-white dark:bg-carddark transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -380,12 +426,21 @@
 
         </div>
     </section>
-
     <div id="footer-placeholder"></div>
-
     <script src="load-footer.js"></script>
-
     <script>
+        const modal = document.getElementById('mascot-modal');
+        
+        function openMascotModal() {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMascotModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -429,31 +484,35 @@
         const mobileThemeIcon = document.getElementById('mobile-theme-icon');
         const htmlElement = document.documentElement;
 
-        function toggleTheme() {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
+        function updateIcons(isDark) {
+            if (isDark) {
+                if(themeIcon) themeIcon.classList.replace('fa-moon', 'fa-sun');
+                if(mobileThemeIcon) mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
             } else {
-                htmlElement.classList.add('dark');
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
+                if(themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon');
+                if(mobileThemeIcon) mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
             }
         }
 
-        themeToggleBtn.addEventListener('click', toggleTheme);
-        mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+        function toggleTheme() {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+            }
+        }
 
-        if (localStorage.getItem('theme') === 'dark') {
-            htmlElement.classList.add('dark');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-            mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+        if(themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+        if(mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+
+        if (htmlElement.classList.contains('dark')) {
+            updateIcons(true);
         } else {
-            htmlElement.classList.remove('dark');
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-            mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
+            updateIcons(false);
         }
     </script>
 </body>
