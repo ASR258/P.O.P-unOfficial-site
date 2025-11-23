@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const footerContent = `
     <!-- 主 Footer 区域 -->
-    <footer id="main-footer" class="bg-[#1F2937] dark:bg-black text-white py-12 border-t border-gray-800 transition-colors duration-300 relative z-10">
+    <footer id="main-footer" class="text-white py-12 border-t border-gray-800 transition-colors duration-300 relative z-10 dark:bg-black" style="background-color: #1F2937;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
                 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="text-center">
                     <h4 class="text-lg font-bold mb-4">关注我们</h4>
                     <div class="flex justify-center gap-4">
-                        <a href="https://space.bilibili.com/286416050" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-secondary transition group" title="访问我们的B站主页">
+                        <a href="https://space.bilibili.com/286416050" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-purple-500 transition group" title="访问我们的B站主页">
                             <i class="fa-brands fa-bilibili text-2xl group-hover:animate-bounce"></i>
                         </a>
                         <a href="https://tieba.baidu.com/f?kw=pob%E5%8A%A8%E6%BC%AB%E7%A4%BE" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-blue-600 transition group" title="访问我们的百度贴吧">
@@ -40,28 +40,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs flex flex-col items-center gap-2">
                 <p>&copy; <span id="year">2025</span> 武汉纺织大学 P.O.B 动漫社. 操场别封烟了.</p>
-                <!-- 提示小箭头，暗示下方有内容 -->
-                <div id="scroll-hint" class="mt-2 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity" onclick="toggleDeveloperSection()">
-                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                
+                <!-- 提示小箭头 -->
+                <div id="scroll-hint" class="mt-4 animate-bounce cursor-pointer opacity-60 hover:opacity-100 transition-opacity p-2" onclick="window.toggleDeveloperSection()">
+                    <span class="text-[10px] block mb-1">下滑或点击探索</span>
+                    <i class="fa-solid fa-chevron-down text-gray-300 text-lg"></i>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- 开发者介绍 -->
-    <div id="developer-section" class="bg-[#1F2937] dark:bg-black text-white overflow-hidden transition-all duration-700 ease-in-out max-h-0 border-t border-gray-800/50">
-        <div class="max-w-7xl mx-auto px-4 py-10 flex justify-center items-center">
+    <!-- 隐藏的开发者区域 (二次滑动展开) -->
+    <!-- 同样使用 style 内联背景色，确保显示 -->
+    <div id="developer-section" class="text-white overflow-hidden transition-all duration-700 ease-in-out max-h-0 border-t border-gray-800/50 dark:bg-black" style="background-color: #1F2937;">
+        <div class="max-w-7xl mx-auto px-4 py-10 flex justify-center items-center min-h-[300px]">
             
             <!-- 开发者名片 -->
-            <!-- 风格与 Navbar 保持一致 (Glassmorphism) -->
-            <div class="relative w-full max-w-md p-6 rounded-2xl backdrop-blur-md shadow-xl border border-white/20 
-                        bg-white/90 dark:bg-gray-900/90 text-gray-900 dark:text-white
-                        transform transition hover:scale-[1.02] duration-300">
+            <div class="relative w-full max-w-md p-6 rounded-2xl shadow-xl border border-white/20 
+                        text-gray-900 dark:text-white
+                        transform transition hover:scale-[1.02] duration-300"
+                 style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);">
+                 <!-- 注意：上面这一行 style 是为了确保 Glassmorphism 在暗色模式下也能通过 JS 调整，或者直接依赖 CSS -->
+                 <!-- 为了适配暗色模式，我们在 JS 里会动态处理这个卡片的背景，或者直接用 Tailwind 的 dark 类 -->
+                 <!-- 修正：给它加上 dark 类的支持 -->
+                 <div class="absolute inset-0 rounded-2xl bg-white/80 dark:bg-gray-900/90 backdrop-blur-md -z-10"></div>
                 
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-6 relative z-10">
                     <!-- 头像 -->
                     <div class="relative shrink-0">
-                        <div class="w-20 h-20 rounded-full overflow-hidden ring-4 ring-primary/30 shadow-lg">
+                        <div class="w-20 h-20 rounded-full overflow-hidden ring-4 ring-blue-400/30 shadow-lg">
                             <img src="https://q.qlogo.cn/g?b=qq&nk=3553352265&s=640" alt="䑟譱" class="w-full h-full object-cover">
                         </div>
                         <div class="absolute -bottom-1 -right-1 bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
@@ -72,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <!-- 信息 -->
                     <div class="flex-1 min-w-0">
                         <h3 class="text-xl font-bold truncate">䑟譱</h3>
-                        <p class="text-sm text-primary font-medium mb-2">网页开发人员</p>
+                        <p class="text-sm text-blue-500 font-medium mb-2">网页开发人员</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
                             "能不能让我转专业。"
                         </p>
@@ -85,8 +92,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
                 
                 <!-- 收起按钮 -->
-                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-center">
-                    <button onclick="toggleDeveloperSection()" class="text-xs text-gray-400 hover:text-primary transition flex items-center justify-center gap-1 mx-auto w-full">
+                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-center relative z-10">
+                    <button onclick="window.toggleDeveloperSection()" class="text-xs text-gray-400 hover:text-blue-500 transition flex items-center justify-center gap-1 mx-auto w-full py-2">
                         <i class="fa-solid fa-chevron-up"></i> 收起
                     </button>
                 </div>
@@ -99,45 +106,46 @@ document.addEventListener("DOMContentLoaded", function() {
     const placeholder = document.getElementById('footer-placeholder');
     if (placeholder) {
         placeholder.innerHTML = footerContent;
-
+        
         const yearSpan = document.getElementById('year');
         if(yearSpan) {
             yearSpan.textContent = new Date().getFullYear();
         }
-
         
         const devSection = document.getElementById('developer-section');
-        const hintIcon = document.getElementById('scroll-hint').querySelector('i');
+        const hintContainer = document.getElementById('scroll-hint');
+        const hintIcon = hintContainer ? hintContainer.querySelector('i') : null;
+        
         let isExpanded = false;
         let touchStartY = 0;
 
         window.toggleDeveloperSection = function() {
             isExpanded = !isExpanded;
             if (isExpanded) {
-                devSection.style.maxHeight = "500px"; 
+                devSection.style.maxHeight = "600px";
                 devSection.style.opacity = "1";
-                hintIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                if(hintIcon) hintIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+
                 setTimeout(() => {
-                    devSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    devSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             } else {
                 devSection.style.maxHeight = "0";
                 devSection.style.opacity = "0";
-                hintIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                if(hintIcon) hintIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                document.getElementById('main-footer').scrollIntoView({ behavior: 'smooth', block: 'end' });
             }
         };
-
         window.addEventListener('wheel', (e) => {
             const scrollHeight = document.documentElement.scrollHeight;
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const clientHeight = document.documentElement.clientHeight;
-            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 5);
-
+            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 10);
             if (isAtBottom && e.deltaY > 0 && !isExpanded) {
-                toggleDeveloperSection();
-            } else if (isExpanded && e.deltaY < 0) {
-            }
-        });
+                window.toggleDeveloperSection();
+            } 
+        }, { passive: true });
+
         window.addEventListener('touchstart', (e) => {
             touchStartY = e.touches[0].clientY;
         }, { passive: true });
@@ -149,14 +157,18 @@ document.addEventListener("DOMContentLoaded", function() {
             const scrollHeight = document.documentElement.scrollHeight;
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const clientHeight = document.documentElement.clientHeight;
-            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 10); 
-
-            if (isAtBottom && diff > 50 && !isExpanded) {
-                toggleDeveloperSection();
+            
+            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 50); 
+            if (isAtBottom && diff > 60 && !isExpanded) {
+                window.toggleDeveloperSection();
+                touchStartY = touchEndY; 
             }
         }, { passive: true });
 
     } else {
-        console.error("错误：找不到 footer-placeholder");
+        console.error("错误：找不到 footer-placeholder，请检查 HTML 文件中是否包含该 ID 的 div。");
     }
 });
+    }
+});
+
