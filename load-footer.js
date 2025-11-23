@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("Footer loaded: v2025.11.23"); 
+
     const footerContent = `
     <!-- 主 Footer 区域 -->
-    <footer id="main-footer" class="text-white py-12 border-t border-gray-800 transition-colors duration-300 relative z-10 dark:bg-black" style="background-color: #1F2937;">
+    <!-- 使用内联 style 强制指定背景色，防止暗色模式下背景消失 -->
+    <footer id="main-footer" class="text-white py-12 border-t border-gray-800 transition-colors duration-300 relative z-10" style="background-color: #1F2937;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
                 
@@ -51,19 +54,17 @@ document.addEventListener("DOMContentLoaded", function() {
     </footer>
 
     <!-- 隐藏的开发者区域 (二次滑动展开) -->
-    <!-- 同样使用 style 内联背景色，确保显示 -->
-    <div id="developer-section" class="text-white overflow-hidden transition-all duration-700 ease-in-out max-h-0 border-t border-gray-800/50 dark:bg-black" style="background-color: #1F2937;">
+    <!-- 背景色与 Footer 保持一致 -->
+    <div id="developer-section" class="text-white overflow-hidden transition-all duration-700 ease-in-out max-h-0 border-t border-gray-800/50" style="background-color: #1F2937;">
         <div class="max-w-7xl mx-auto px-4 py-10 flex justify-center items-center min-h-[300px]">
             
             <!-- 开发者名片 -->
-            <div class="relative w-full max-w-md p-6 rounded-2xl shadow-xl border border-white/20 
+            <div class="developer-card relative w-full max-w-md p-6 rounded-2xl shadow-xl border border-white/10 
                         text-gray-900 dark:text-white
                         transform transition hover:scale-[1.02] duration-300"
-                 style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);">
-                 <!-- 注意：上面这一行 style 是为了确保 Glassmorphism 在暗色模式下也能通过 JS 调整，或者直接依赖 CSS -->
-                 <!-- 为了适配暗色模式，我们在 JS 里会动态处理这个卡片的背景，或者直接用 Tailwind 的 dark 类 -->
-                 <!-- 修正：给它加上 dark 类的支持 -->
-                 <div class="absolute inset-0 rounded-2xl bg-white/80 dark:bg-gray-900/90 backdrop-blur-md -z-10"></div>
+                 style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+
+                 <div class="absolute inset-0 rounded-2xl -z-10 transition-colors duration-300 bg-white/90 dark:bg-[#111827]/90"></div>
                 
                 <div class="flex items-center gap-6 relative z-10">
                     <!-- 头像 -->
@@ -80,8 +81,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="flex-1 min-w-0">
                         <h3 class="text-xl font-bold truncate">䑟譱</h3>
                         <p class="text-sm text-blue-500 font-medium mb-2">网页开发人员</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-                            "能不能让我转专业。"
+                        <p class="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
+                            "我要转专业啊。"
                         </p>
                     </div>
                 </div>
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 <!-- 收起按钮 -->
                 <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-center relative z-10">
-                    <button onclick="window.toggleDeveloperSection()" class="text-xs text-gray-400 hover:text-blue-500 transition flex items-center justify-center gap-1 mx-auto w-full py-2">
+                    <button onclick="window.toggleDeveloperSection()" class="text-xs text-gray-500 dark:text-gray-400 hover:text-blue-500 transition flex items-center justify-center gap-1 mx-auto w-full py-2 cursor-pointer">
                         <i class="fa-solid fa-chevron-up"></i> 收起
                     </button>
                 </div>
@@ -106,11 +107,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const placeholder = document.getElementById('footer-placeholder');
     if (placeholder) {
         placeholder.innerHTML = footerContent;
-        
+
         const yearSpan = document.getElementById('year');
         if(yearSpan) {
             yearSpan.textContent = new Date().getFullYear();
         }
+
         
         const devSection = document.getElementById('developer-section');
         const hintContainer = document.getElementById('scroll-hint');
@@ -125,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 devSection.style.maxHeight = "600px";
                 devSection.style.opacity = "1";
                 if(hintIcon) hintIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-
+                
                 setTimeout(() => {
                     devSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
@@ -133,14 +135,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 devSection.style.maxHeight = "0";
                 devSection.style.opacity = "0";
                 if(hintIcon) hintIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                
                 document.getElementById('main-footer').scrollIntoView({ behavior: 'smooth', block: 'end' });
             }
         };
+
         window.addEventListener('wheel', (e) => {
             const scrollHeight = document.documentElement.scrollHeight;
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const clientHeight = document.documentElement.clientHeight;
-            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 10);
+
+            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 20);
+
             if (isAtBottom && e.deltaY > 0 && !isExpanded) {
                 window.toggleDeveloperSection();
             } 
@@ -152,13 +158,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         window.addEventListener('touchmove', (e) => {
             const touchEndY = e.touches[0].clientY;
-            const diff = touchStartY - touchEndY; 
+            const diff = touchStartY - touchEndY;
 
             const scrollHeight = document.documentElement.scrollHeight;
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const clientHeight = document.documentElement.clientHeight;
-            
-            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 50); 
+
+            const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 60); 
+
             if (isAtBottom && diff > 60 && !isExpanded) {
                 window.toggleDeveloperSection();
                 touchStartY = touchEndY; 
@@ -169,6 +176,3 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("错误：找不到 footer-placeholder，请检查 HTML 文件中是否包含该 ID 的 div。");
     }
 });
-    }
-});
-
