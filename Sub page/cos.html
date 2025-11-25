@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Cosplay 部 | P.O.B 动漫社</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#F43F5E', // Rose-500
+                        secondary: '#8B5CF6', // Violet-500
+                        darkbg: '#0F172A', 
+                        carddark: '#1E293B', 
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; 
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-effect {
+            background: rgba(15, 23, 42, 0.90);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .member-card.active {
+            border-color: #F43F5E;
+            background: rgba(244, 63, 94, 0.05);
+        }
+        .dark .member-card.active {
+            background: rgba(244, 63, 94, 0.1);
+        }
+
+        .img-container {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        ::selection {
+            background-color: #F43F5E;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 transition-colors duration-300 dark:bg-darkbg dark:text-gray-200 w-full">
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-effect shadow-sm top-0 left-0" id="navbar">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='https://asr258.github.io/P.O.B-unOfficial-site/'">
+                    <img src="https://github.com/ASR258/P.O.P-unOfficial-site/blob/main/resource/logo2.png?raw=true" alt="P.O.B Logo" class="h-10 w-auto">
+                    <span class="font-bold text-xl tracking-wider text-primary border-l-2 border-primary pl-2 ml-2">
+                        Cosplay 部
+                    </span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition flex items-center">
+                        <i class="fa-solid fa-house mr-1"></i> 返回首页
+                    </a>
+                    <a href="#gallery" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white font-medium transition">
+                        <i class="fa-solid fa-images mr-1"></i> 成员图鉴
+                    </a>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-theme-toggle" class="text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary dark:text-gray-300 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 absolute w-full left-0 shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="https://asr258.github.io/P.O.B-unOfficial-site/" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">返回首页</a>
+                <a href="#gallery" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700">成员图鉴</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative h-[40vh] min-h-[300px] w-full flex items-center justify-center overflow-hidden bg-gray-900">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 mix-blend-overlay"></div>
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=2070&auto=format&fit=crop" alt="Cosplay Background" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-darkbg to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4">
+            <div class="inline-block px-4 py-1 mb-4 text-xs font-bold tracking-widest text-pink-200 uppercase bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                P.O.B Cosplay
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-lg mb-4">
+                P.O.B的<span class="text-primary">破壁者</span>
+            </h1>
+            <p class="text-gray-300 text-sm md:text-base max-w-xl mx-auto">
+                不仅仅是穿上角色的衣服，更是注入角色的灵魂。在这里，次元壁由我们打破。
+            </p>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-12 w-full min-h-screen relative">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col-reverse lg:flex-row gap-8">
+
+                <div class="w-full lg:w-3/4">
+                    <!-- 标题 -->
+                    <div class="mb-6 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-camera-retro text-primary"></i> 
+                                <span id="current-member-name">成员展示</span>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div id="image-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4 h-auto md:h-[600px]">
+                        
+                        <div class="md:col-span-2 md:row-span-3 relative rounded-2xl overflow-hidden shadow-xl group bg-gray-100 dark:bg-carddark h-[400px] md:h-full">
+                            <img id="main-image" src="" alt="Main Display" 
+                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 animate-fade-in cursor-default">
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                        </div>
+
+                        <div class="relative rounded-xl overflow-hidden shadow-md cursor-pointer hover:ring-4 ring-primary/50 transition-all duration-300 group h-[200px] md:h-auto"
+                             onclick="swapImage(1)">
+                            <img id="thumb-1" src="" alt="Thumbnail 1" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition pointer-events-none"></div>
+                        </div>
+
+                        <div class="relative rounded-xl overflow-hidden shadow-md cursor-pointer hover:ring-4 ring-primary/50 transition-all duration-300 group h-[200px] md:h-auto"
+                             onclick="swapImage(2)">
+                            <img id="thumb-2" src="" alt="Thumbnail 2" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition pointer-events-none"></div>
+                        </div>
+
+                        <div class="relative rounded-xl overflow-hidden shadow-md cursor-pointer hover:ring-4 ring-primary/50 transition-all duration-300 group h-[200px] md:h-auto"
+                             onclick="swapImage(3)">
+                            <img id="thumb-3" src="" alt="Thumbnail 3" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition pointer-events-none"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/4 flex flex-col">
+                    <div class="sticky top-24">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 pl-2 border-l-4 border-primary">成员列表</h3>
+
+                        <div class="space-y-4" id="member-list">
+                            <!-- 名片 1: すぐそばの彼方 -->
+                            <div class="member-card active bg-white dark:bg-carddark p-4 rounded-xl shadow-sm border-2 border-transparent cursor-pointer transition-all duration-300 hover:shadow-md flex items-center gap-4 group"
+                                 onclick="selectMember('bifang', this)">
+                                <div class="relative w-12 h-12 shrink-0">
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full animate-spin-slow opacity-70"></div>
+                                    <img src="https://q.qlogo.cn/g?b=qq&nk=1590132760&s=640" class="w-full h-full rounded-full object-cover border-2 border-white dark:border-gray-800 relative z-10">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition">すぐそばの彼方</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">区</p>
+                                </div>
+                            </div>
+
+                            <!-- 名片 2: 冷星真菌 -->
+                            <div class="member-card bg-white dark:bg-carddark p-4 rounded-xl shadow-sm border-2 border-transparent cursor-pointer transition-all duration-300 hover:shadow-md flex items-center gap-4 group"
+                                 onclick="selectMember('lengxing', this)">
+                                <div class="relative w-12 h-12 shrink-0">
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500 to-cyan-500 rounded-full animate-spin-slow opacity-0 group-hover:opacity-70 transition"></div>
+                                    <img src="https://q.qlogo.cn/g?b=qq&nk=1587806565&s=640" class="w-full h-full rounded-full object-cover border-2 border-white dark:border-gray-800 relative z-10">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition">冷星真菌</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">nsyc月丑</p>
+                                </div>
+                            </div>
+
+                            <!-- 名片 3: 未济 -->
+                            <div class="member-card bg-white dark:bg-carddark p-4 rounded-xl shadow-sm border-2 border-transparent cursor-pointer transition-all duration-300 hover:shadow-md flex items-center gap-4 group"
+                                 onclick="selectMember('weiji', this)">
+                                <div class="relative w-12 h-12 shrink-0">
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-indigo-500 rounded-full animate-spin-slow opacity-0 group-hover:opacity-70 transition"></div>
+                                    <img src="https://q.qlogo.cn/g?b=qq&nk=1175687236&s=640" class="w-full h-full rounded-full object-cover border-2 border-white dark:border-gray-800 relative z-10">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition">未济</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">介绍介绍介绍</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../load-footer.js"></script>
+
+    <script>
+        const membersData = {
+            'bifang': {
+                name: 'すぐそばの彼方',
+                images: [
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/bifang/bifang2.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/bifang/bifang1.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/bifang/bifang3.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/bifang/bifang4.jpg?raw=true'
+                ]
+            },
+            'lengxing': {
+                name: '冷星真菌',
+                images: [
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/lengxing/lengxing4.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/lengxing/lengxing2.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/lengxing/lengxing3.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/lengxing/lengxing1.jpg?raw=true'
+                ]
+            },
+            'weiji': {
+                name: '未济',
+                images: [
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/weiji/weiji1.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/weiji/weiji2.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/weiji/weiji3.jpg?raw=true',
+                    'https://github.com/ASR258/P.O.B-unOfficial-site/blob/main/resource/cos/weiji/weiji4.jpg?raw=true'
+                ]
+            }
+        };
+
+        let currentImagesState = [];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const firstCard = document.querySelector('.member-card');
+            if(firstCard) selectMember('bifang', firstCard);
+        });
+
+        function selectMember(key, element) {
+            const data = membersData[key];
+            if (!data) return;
+
+            document.querySelectorAll('.member-card').forEach(card => {
+                card.classList.remove('active');
+                const glow = card.querySelector('.animate-spin-slow');
+                if(glow) glow.classList.replace('opacity-70', 'opacity-0');
+            });
+            element.classList.add('active');
+            const activeGlow = element.querySelector('.animate-spin-slow');
+            if(activeGlow) activeGlow.classList.replace('opacity-0', 'opacity-70');
+
+            document.getElementById('current-member-name').textContent = data.name;
+
+            currentImagesState = [...data.images];
+            renderImages();
+        }
+
+        function renderImages() {
+            const mainImg = document.getElementById('main-image');
+            const thumb1 = document.getElementById('thumb-1');
+            const thumb2 = document.getElementById('thumb-2');
+            const thumb3 = document.getElementById('thumb-3');
+
+            if (!mainImg || !thumb1 || !thumb2 || !thumb3) {
+                console.error("Image elements not found");
+                return;
+            }
+
+            mainImg.classList.remove('animate-fade-in');
+            void mainImg.offsetWidth; 
+            mainImg.classList.add('animate-fade-in');
+
+            mainImg.src = currentImagesState[0];
+            thumb1.src = currentImagesState[1];
+            thumb2.src = currentImagesState[2];
+            thumb3.src = currentImagesState[3];
+        }
+
+        function swapImage(index) {
+            if (index < 1 || index > 3) return;
+
+            const temp = currentImagesState[0];
+            currentImagesState[0] = currentImagesState[index];
+            currentImagesState[index] = temp;
+
+            renderImages();
+        }
+
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if(btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            const isDark = document.documentElement.classList.contains('dark');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                if(isDark) {
+                    nav.classList.remove('glass-effect');
+                    nav.classList.add('bg-gray-900/95');
+                } else {
+                    nav.classList.replace('glass-effect', 'bg-white/95');
+                }
+            } else {
+                nav.classList.remove('shadow-md');
+                if(isDark) {
+                    nav.classList.remove('bg-gray-900/95');
+                    nav.classList.add('glass-effect');
+                } else {
+                    nav.classList.replace('bg-white/95', 'glass-effect');
+                }
+            }
+        });
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const htmlElement = document.documentElement;
+
+        function updateIcons(isDark) {
+            if (isDark) {
+                if(themeIcon) themeIcon.classList.replace('fa-moon', 'fa-sun');
+                if(mobileThemeIcon) mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                if(themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon');
+                if(mobileThemeIcon) mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        function toggleTheme() {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+            }
+        }
+
+        if(themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+        if(mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+
+        if (htmlElement.classList.contains('dark')) {
+            updateIcons(true);
+        } else {
+            updateIcons(false);
+        }
+    </script>
+</body>
+</html>
