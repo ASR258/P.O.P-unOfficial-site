@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-xs flex flex-col items-center gap-2">
-                <p>&copy; <span id="year">2025</span> 武汉纺织大学 P.O.B 动漫社. 操场别封烟了.</p>
+                <p>&copy; <span id="year">2025</span> 武汉纺织大学 P.O.B 动漫社. 我的大火不见了😭.</p>
 
                 <div id="scroll-hint" class="mt-4 animate-bounce cursor-pointer opacity-60 hover:opacity-100 transition-opacity p-2" onclick="window.toggleDeveloperSection()">
                     <span class="text-[10px] block mb-1">下滑或点击探索</span>
@@ -153,3 +153,4 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("错误：找不到 footer-placeholder，请检查 HTML 文件中是否包含该 ID 的 div。");
     }
 });
+
